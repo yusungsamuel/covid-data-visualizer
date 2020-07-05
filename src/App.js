@@ -1,24 +1,54 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect, useState, useRef } from 'react';
 import './App.css';
+import covidData from "./utilities"
+import axios from "axios";
+import { select, scaleLinear, max, scaleBand } from "d3";
+
 
 function App() {
+  const [chinaCase, setChinaCase] = useState([]);
+  // const canvas = useRef(null);
+
+
+
+  useEffect(() => {
+    let cancel
+    covidData.dayOneLive("china")
+      .then(response => {
+        setChinaCase(response.data)
+        new axios.CancelToken(c => cancel = c)
+        return () => cancel()
+      })
+
+    //d3 codes
+    const svg = select("svg");
+    const width = +svg.attr("width")
+    const height = +svg.attr("height")
+
+    const render = data => {
+      const xValue = d => d.Cases;
+      const yValue = d => d.Date;
+      const xScale = scaleLinear()
+        .domain([0,max(data, d => d.Cases )])
+        .range([0, width]);
+
+      const yScale = scaleBand()
+        .domain(data.map(yValue))
+        .range([0, height]);
+      svg.selectAll("rect").data(data)
+        .enter().append("rect")
+          .attr("y", d => yScale(yValue(d)))
+          .attr("width", d=> xScale(xValue(d)))
+          .attr("height", yScale.bandwidth());
+    };
+    render(chinaCase);
+  }, [chinaCase]);
+
+  invalidation()
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <svg fill="black" height="500" width="700" ></svg>
     </div>
   );
 }
