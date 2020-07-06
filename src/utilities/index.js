@@ -8,7 +8,7 @@ const covidData = {
             "url": url
         })
     },
-    dayOneLive: (country) =>{
+    dayOne: (country) =>{
         let url = `https://api.covid19api.com/total/country/${country}/status/confirmed`
         return axios({
             "method": "GET",
