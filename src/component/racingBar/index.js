@@ -1,20 +1,34 @@
 import React, { useEffect, useState } from "react";
 import covidData from "../../utilities";
+import {group} from "d3";
+import states from "../../states.json"
 
 const RacingBar = () => {
     useEffect(() => {
         async function fetchData() {
-            let countries = await covidData.getAllCountries();
-            let countryArray = countries.data
             let promise = []
-            countryArray.forEach((c) => {
-                promise.push(covidData.dayOne(c.Slug));
+            
+            states.forEach((s)=>{
+                promise.push(covidData.singleState(s.abbreviation))
             })
-            let resolved = await Promise.all(promise)
-            resolved.forEach((r) => {
-                r = r.data
-            })
-            console.log(resolved)
+
+            let data = await Promise.all(promise)
+            // console.log(data)
+
+            let arr = []
+            // data.forEach
+            // countryArray.forEach((c) => {
+            //     promise.push(covidData.dayOne(c.Slug));
+            // })
+            // let data = await Promise.all(promise)
+            // data.forEach((d) => {
+            //     d = d.data
+            // })
+            // console.log(data)
+            // let datevalues = Array.from(d3.nest.rollup(data, ([d]) => d.value, d => +d.date, d => d.name))
+            //     .map(([date, data]) => [new Date(date), data])
+            //     .sort(([a], [b]) => d3.ascending(a, b))
+            // console.log(datevalues)
         }
         fetchData();
 

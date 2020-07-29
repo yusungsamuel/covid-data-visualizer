@@ -8,13 +8,20 @@ const covidData = {
             "url": url
         })
     },
-    dayOne: (country) =>{
-        let url = `https://api.covid19api.com/total/country/${country}/status/confirmed`
+    singleState: (state) =>{
+        let url = `https://covidtracking.com/api/v1/states/${state}/daily.json`
         return axios({
             "method": "GET",
             "url": url
         })
 
+    },
+    allStateCurrent: ()=>{
+        let url = "https://covidtracking.com/api/v1/states/current.json"
+        return axios({
+            "method": "GET",
+            "url": url
+        })
     }
 };
 
