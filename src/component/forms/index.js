@@ -2,8 +2,8 @@ import React from "react";
 
 export function DropDown(props) {
     return (
-        <form>
-            <select class="uk-select">
+        <form onChange={props.submit}>
+            <select>
                 {props.children}
             </select>
         </form>
@@ -13,6 +13,6 @@ export function DropDown(props) {
 
 export function Option (props) {
     return (
-    <option>{props.option.toUpperCase()}</option>
+    <option value={props.option}>{props.option.toUpperCase()}</option>
     )
 }

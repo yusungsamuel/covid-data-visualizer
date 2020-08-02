@@ -1,10 +1,11 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import covidData from "../../utilities";
 import * as d3 from "d3";
 import {DropDown, Option} from "../forms";
 import states from "../../states.json";
 
 let LineChart = () => {
+    const [state, setState] = useState("al")
     const histoRef = useRef(null);
     useEffect(() => {
         const fetchData = async (state) => {
@@ -61,6 +62,8 @@ let LineChart = () => {
 
             const svg = d3.select(histoRef.current)
                 .attr("viewBox", [0, 0, width, height]);
+            
+            svg.selectAll("*").remove();
 
             svg.append("g")
                 .call(xAxis);
@@ -77,13 +80,23 @@ let LineChart = () => {
                 .attr("stroke-linecap", "round")
                 .attr("d", line);
         }
-        fetchData("ca");
+        fetchData(state);
 
     })
+
+
+    const handleSubmit = (event)=>{
+        event.preventDefault();
+        let choice = event.target.value
+        setState(choice)
+    }
+
     return (
 
         <div>
-            <DropDown>
+            <DropDown
+                submit={handleSubmit}
+            >
                 {states.map((state)=>{
                     return (
                         <Option
