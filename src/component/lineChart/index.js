@@ -1,19 +1,21 @@
 import React, { useEffect, useRef } from "react";
-import covidData from "../../utilities"
+import covidData from "../../utilities";
 import * as d3 from "d3";
+import {DropDown, Option} from "../forms";
+import states from "../../states.json";
 
 let LineChart = () => {
     const histoRef = useRef(null);
     useEffect(() => {
         const fetchData = async (state) => {
             let data = (await covidData.singleState(state)).data
-            const parseDate = (str) =>{
+            const parseDate = (str) => {
                 str = str.toString()
                 str = str.split("");
                 str.splice(4, 0, "-");
                 str.splice(7, 0, "-");
                 str = (str.join(""));
-                
+
                 return str
             }
             data = Object.assign(data.map((d) => {
@@ -79,7 +81,19 @@ let LineChart = () => {
 
     })
     return (
-        <svg ref={histoRef}></svg>
+
+        <div>
+            <DropDown>
+                {states.map((state)=>{
+                    return (
+                        <Option
+                            option={state.abbreviation}
+                        ></Option>
+                    )
+                })}
+            </DropDown>
+            <svg ref={histoRef}></svg>
+        </div>
     )
 }
 

@@ -29,7 +29,7 @@ function PieChart() {
             console.log(arcs)
             
             const width = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
-            const height = Math.min(width, 600);
+            const height = Math.min(width, 1600);
 
             const color = d3.scaleOrdinal()
                 .domain(data.map(d => d.name))
