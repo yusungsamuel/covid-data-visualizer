@@ -50,9 +50,8 @@ function App() {
 
   return (
     <div className="App">
-      {/* <svg fill="black" height="500" width="700" ></svg> */}
-      {/* <RacingBar></RacingBar>
-      <PieChart></PieChart> */}
+      <RacingBar></RacingBar>
+      {/* <PieChart></PieChart>  */}
       <LineChart></LineChart>
     </div>
   );
