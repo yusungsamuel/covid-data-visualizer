@@ -26,9 +26,10 @@ function PieChart() {
                 .value(d => d.value)
 
             const arcs = pie(data)
+            console.log(arcs)
             
-            const width = window.innerWidth;
-            const height = Math.min(width, 1500);
+            const width = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
+            const height = Math.min(width, 600);
 
             const color = d3.scaleOrdinal()
                 .domain(data.map(d => d.name))
@@ -47,10 +48,10 @@ function PieChart() {
             svg.selectAll("path")
                 .data(arcs)
                 .join("path")
-                .attr("fill", d => color(d.data.name))
-                .attr("d", arc)
-                .append("title")
-                .text(d => `${d.data.name}: ${d.data.value.toLocaleString()}`);
+                    .attr("fill", d => color(d.data.name))
+                    .attr("d", arc)
+                    .append("title")
+                        .text(d => `${d.data.name}: ${d.data.value.toLocaleString()}`);
 
             svg.append("g")
                 .attr("font-family", "sans-serif")
