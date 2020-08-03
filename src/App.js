@@ -52,7 +52,7 @@ function App() {
     <div className="App">
       <RacingBar></RacingBar>
       {/* <PieChart></PieChart>  */}
-      <LineChart></LineChart>
+      {/* <LineChart></LineChart> */}
     </div>
   );
 }
