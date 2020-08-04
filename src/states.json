@@ -1,152 +1,202 @@
 [
     {
+        "AL": "Alabama",
         "abbreviation": "al"
     },
     {
+        "AK":"Alaska",
         "abbreviation": "ak"
     },
     {
+        "AZ":"Arizona",
         "abbreviation": "az"
     },
     {
+        "AR":"Arkansas",
         "abbreviation": "ar"
     },
     {
+        "CA":"California",
         "abbreviation": "ca"
     },
     {
+        "CO":"Colorado",
         "abbreviation": "co"
     },
     {
+        "CT":"Connecticut",
         "abbreviation": "ct"
     },
     {
+        "DE": "Delaware",
         "abbreviation": "de"
     },
     {
+        "FL":"Florida",
         "abbreviation": "fl"
     },
     {
+        "GA":"Georgia",
         "abbreviation": "ga"
     },
     {
+        "HI":"Hawaii",
         "abbreviation": "hi"
     },
     {
+        "ID":"Idaho",
         "abbreviation": "id"
     },
     {
+        "IL":"Illinois",
         "abbreviation": "il"
     },
     {
+        "IN":"Indiana",
         "abbreviation": "in"
     },
     {
+        "IA":"Iowa",
         "abbreviation": "ia"
     },
     {
+        "KS":"Kansas",
         "abbreviation": "ks"
     },
     {
+        "KY":"Kentucky",
         "abbreviation": "ky"
     },
     {
+        "LA":"Louisiana",
         "abbreviation": "la"
     },
     {
+        "ME":"Maine",
         "abbreviation": "me"
     },
     {
+        "MD": "Maryland",
         "abbreviation": "md"
     },
     {
+        "MA":"Massachusetts",
         "abbreviation": "ma"
     },
     {
+        "MI":"Michigan",
         "abbreviation": "mi"
     },
     {
+        "MN":"Minnesota",
         "abbreviation": "mn"
     },
     {
+        "MS":"Mississippi",
         "abbreviation": "ms"
     },
     {
+        "MO":"Missouri",
         "abbreviation": "mo"
     },
     {
+        "MT":"Montana",
         "abbreviation": "mt"
     },
     {
+        "NE":"Nebreska",
         "abbreviation": "ne"
     },
     {
+        "NV":"Nevada",
         "abbreviation": "nv"
     },
     {
+        "NH":"New Hampshire",
         "abbreviation": "nh"
     },
     {
+        "NJ":"New Jersey",
         "abbreviation": "nj"
     },
     {
+        "NM":"New Mexico",
         "abbreviation": "nm"
     },
     {
+        "NY":"New York",
         "abbreviation": "ny"
     },
     {
+        "NC":"North Carolina",
         "abbreviation": "nc"
     },
     {
+        "ND": "North Dakota",
         "abbreviation": "nd"
     },
     {
+        "OH":"Ohio",
         "abbreviation": "oh"
     },
     {
+        "OK":"Oklahoma",
         "abbreviation": "ok"
     },
     {
+        "OR":"Oregon",
         "abbreviation": "or"
     },
     {
+        "PA":"Pennsylvania",
         "abbreviation": "pa"
     },
     {
+        "RI":"Rhode Island",
         "abbreviation": "ri"
     },
     {
+        "SC": "South Carolina",
         "abbreviation": "sc"
     },
     {
+        "SD": "South Dakota",
         "abbreviation": "sd"
     },
     {
+        "TN":"Tennnessee",
         "abbreviation": "tn"
     },
     {
+        "TX": "Texas",
         "abbreviation": "tx"
     },
     {
+        "UT":"Utah",
         "abbreviation": "ut"
     },
     {
+        "VT":"Vermont",
         "abbreviation": "vt"
     },
     {
+        "VA":"Virginia",
         "abbreviation": "va"
     },
     {
+        "WA":"Washington",
         "abbreviation": "wa"
     },
     {
+        "WV":"West Virginia",
         "abbreviation": "wv"
     },
     {
+        "WI":"Wisconsin",
         "abbreviation": "wi"
     },
     {
+        "WY":"Wyoming",
         "abbreviation": "wy"
     }  
 ]

@@ -5,6 +5,7 @@ import axios from "axios";
 import RacingBar from "./component/racingBar";
 import PieChart from "./component/pieChart";
 import LineChart from "./component/lineChart"
+import Choropleth from "./component/choropleth"
 import { select, scaleLinear, max, scaleBand } from "d3";
 
 
@@ -53,6 +54,7 @@ function App() {
       <RacingBar></RacingBar>
       {/* <PieChart></PieChart>  */}
       {/* <LineChart></LineChart> */}
+      <Choropleth></Choropleth>
     </div>
   );
 }

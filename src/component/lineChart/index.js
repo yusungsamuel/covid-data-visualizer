@@ -5,7 +5,7 @@ import { DropDown, Option } from "../forms";
 import { parseDate } from "../../utilities/function"
 import states from "../../states.json";
 
-let LineChart = () => {
+const LineChart = () => {
     const [state, setState] = useState("al")
     const histoRef = useRef(null);
     useEffect(() => {
