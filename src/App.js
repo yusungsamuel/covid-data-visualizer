@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import './App.css';
-import covidData from "./utilities"
+import covidData from "./utilities/API"
 import axios from "axios";
 import RacingBar from "./component/racingBar";
 import PieChart from "./component/pieChart";
