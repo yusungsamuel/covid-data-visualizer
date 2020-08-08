@@ -99,6 +99,7 @@ const RacingBar = () => {
             let label = svg.append("g")
                 .style("font", "bold 12px var(--sans-serif)")
                 .style("font-variant-numeric", "tabular-nums")
+                .style("text-transform", "uppercase")
                 .attr("text-anchor", "end")
                 .selectAll("text");
 
