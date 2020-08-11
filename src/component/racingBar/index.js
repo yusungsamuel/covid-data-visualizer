@@ -208,7 +208,7 @@ const RacingBar = () => {
 
 
         async function play(svg) {
-            const duration = 150
+            const duration = 50
 
             for (const keyframe of keyframes) {
                 const transition = svg.transition()
