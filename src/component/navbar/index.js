@@ -1,9 +1,10 @@
 import React from "react";
+import "./style.scss"
 
 export const NavBar = (props) => {
 
     return (
-        <nav className="uk-navbar-container" data-uk-navbar>
+        <nav className="navbar uk-navbar-transparent uk-navbar-container" data-uk-navbar>
             <div className="uk-navbar-center">
                 <ul className="uk-navbar-nav">
                     {props.children}
@@ -16,6 +17,6 @@ export const NavBar = (props) => {
 
 export const NavItem = (props) => {
     return (
-        <li className={props.className}><a href="#" data-Index={props.dataIndex} onClick={props.handleClick}>{props.title}</a></li>
+        <li className={props.className}><a className="uk-link-reset" href="#" data-Index={props.dataIndex} onClick={props.handleClick}>{props.title}</a></li>
     )
 }

@@ -1,0 +1,47 @@
+nav{
+    background-color: rgb(40, 136, 201);
+	-webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);  
+	align-items: center;
+	padding: 0 10px;
+	margin: 50px 0 0 0;
+    .navButton {
+        color:black;
+        position: relative;
+        a{
+            font-family: sans-serif;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        &:hover {
+            color: white;
+        } 
+    }
+    .navButton-active {
+        position: relative;
+        
+        a{
+            font-family: sans-serif;
+            font-weight: bold;
+            cursor: pointer;
+            &::before {
+                content: " ";
+                position: absolute;
+                top: 0;
+                left:10%;
+                height:100%;
+                width: 80%;
+                z-index:-1;
+                transition: .2s;
+                border-radius: 25px;
+                background: white;
+                box-shadow: 0px 3px 20px 0px rgb(90, 90, 90);
+                transform: scale(1.2);
+            }
+            
+        }
+    }    
+}
+    
+
+
