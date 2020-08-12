@@ -10,9 +10,7 @@ const Choropleth = () => {
     const fetchData = async () => {
         const response = (await covidData.allStateCurrent()).data
         const data = new Map();
-        console.log(response)
         response.forEach((r) => {
-            console.log(stateConversion[r.state])
             data.set(stateConversion[r.state], ((r.positive/r.total)*100).toPrecision(4))
         })
         return data
@@ -22,7 +20,7 @@ const Choropleth = () => {
     useEffect(() => {
         async function sketch() {
             const data = await fetchData()
-            console.log(data)
+            // console.log(data)
             const format = d => `${d}%`
             const path = d3.geoPath();
             const color = d3.scaleQuantize([1, 20], d3.schemeReds[9])
