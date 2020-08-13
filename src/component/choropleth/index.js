@@ -23,7 +23,7 @@ const Choropleth = () => {
             // console.log(data)
             const format = d => `${d}%`
             const path = d3.geoPath();
-            const color = d3.scaleQuantize([1, 20], d3.schemeReds[9])
+            const color = d3.scaleQuantize([1, 20], d3.schemeBlues[9])
 
             const svg = d3.select(choroRef.current)
                 .attr("viewBox", [0, 0, 975, 610]);

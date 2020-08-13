@@ -5,6 +5,7 @@ import RacingBar from "./component/racingBar";
 import PieChart from "./component/pieChart";
 import LineChart from "./component/lineChart"
 import Choropleth from "./component/choropleth"
+import DataDisplay from "./component/dataDisplay"
 import { active } from 'd3';
 
 
@@ -22,7 +23,12 @@ function App() {
   const conditionalRender = (index) => {
     switch (index) {
       case ("0"):
-        return (<Choropleth></Choropleth>)
+        return (
+          <div>
+            <DataDisplay></DataDisplay>
+            <Choropleth></Choropleth>
+          </div>
+        )
       case ("1"):
         return (<LineChart></LineChart>)
       case ("2"):
@@ -36,22 +42,22 @@ function App() {
   return (
     <div className="App">
 
-
+      <NavBar>
+        {navigations.map((navigation, i) => {
+          const className = i === parseInt(activeIndex) ? "navButton-active" : "navButton"
+          return (
+            <NavItem
+              key={i}
+              dataIndex={i}
+              title={navigation}
+              handleClick={handleClick}
+              className={className}
+            ></NavItem>
+          )
+        })}
+      </NavBar>
       <div className="view-box">
-        <NavBar>
-          {navigations.map((navigation, i) => {
-            const className = i === parseInt(activeIndex) ? "navButton-active" : "navButton"
-            return (
-              <NavItem
-                key={i}
-                dataIndex={i}
-                title={navigation}
-                handleClick={handleClick}
-                className={className}
-              ></NavItem>
-            )
-          })}
-        </NavBar>
+
         {conditionalRender(activeIndex)}
       </div>
     </div>

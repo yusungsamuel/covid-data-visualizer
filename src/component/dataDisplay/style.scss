@@ -1,0 +1,7 @@
+.table {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    .column {
+        border: solid black 1px;
+    }
+}
