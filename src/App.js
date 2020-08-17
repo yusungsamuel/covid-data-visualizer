@@ -24,10 +24,7 @@ function App() {
     switch (index) {
       case ("0"):
         return (
-          <div>
-            <DataDisplay></DataDisplay>
             <Choropleth></Choropleth>
-          </div>
         )
       case ("1"):
         return (<LineChart></LineChart>)

@@ -1,17 +1,25 @@
 import React from "react";
 import "./style.scss"
 
-const DataDisplay = () => {
+export const DataDisplay = (props) => {
     return (
         <div className="table">
-            <div className="column">
-                Hi
+            <div className="header">
+                <div className="column">State</div>
+                <div className="column">Numbers</div>
             </div>
-            <div className="column">
-                Hello
+            <div className="body">
+                {props.children}
             </div>
         </div>
     )
 }
 
-export default DataDisplay;
+export const TableRow = (props) => {
+    return (
+        <div className="row">
+            <div className="column">{props.name}</div>
+            <div className="column">{props.stat}</div>
+        </div>
+    )
+}

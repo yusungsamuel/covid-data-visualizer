@@ -23,8 +23,8 @@ const LineChart = () => {
         }
         const sketch = async () => {
             let data = await fetchData(state)
-            const height = 500;
-            const width = 2 * height
+            const height = 300;
+            const width = 3 * height
             const margin = ({ top: 20, right: 30, bottom: 30, left: 40 });
 
             const y = d3.scaleLinear()
@@ -78,7 +78,7 @@ const LineChart = () => {
         }
         sketch()
 
-    })
+    },[state])
 
 
     const handleSubmit = (event) => {

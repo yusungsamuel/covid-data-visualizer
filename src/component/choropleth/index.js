@@ -1,36 +1,60 @@
-import React, { useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import * as d3 from "d3";
 import * as topojson from "topojson-client";
 import us from "../../states-albers-10m.json"
 import covidData from "../../utilities/API"
-import states from "../../states.json"
+import legend from "../legend"
+import { DataDisplay, TableRow } from "../dataDisplay"
+import { DropDown, Option } from "../forms"
 import stateConversion from "../../state-conversion.json"
+import "./style.scss"
+
+const possibleChoice = ["Percent Positive", "Hospitalized Currently", "Death"]
+
 const Choropleth = () => {
+    const [currentData, setCurrentData] = useState(null);
+    const [choice, setChoice] = useState("Percent Positive")
     const choroRef = useRef(null);
+
     const fetchData = async () => {
         const response = (await covidData.allStateCurrent()).data
+        setCurrentData(response)
         const data = new Map();
         response.forEach((r) => {
-            data.set(stateConversion[r.state], ((r.positive/r.total)*100).toPrecision(4))
+            switch (choice) {
+                case "Percent Positive":
+                    data.set(stateConversion[r.state], ((r.positive / r.total) * 100).toPrecision(4));
+                case "Hospitalized Currently":
+                    data.set(stateConversion[r.state], (r.hospitalizedCurrently / 100).toPrecision(2));
+                case "Death":
+                    data.set(stateConversion[r.state], (r.death / 100).toPrecision(2));
+                default:
+                    data.set(stateConversion[r.state], ((r.positive / r.total) * 100).toPrecision(4));
+            }
+
         })
         return data
     }
 
 
     useEffect(() => {
+        
         async function sketch() {
             const data = await fetchData()
             // console.log(data)
             const format = d => `${d}%`
             const path = d3.geoPath();
-            const color = d3.scaleQuantize([1, 20], d3.schemeBlues[9])
+            const color = d3.scaleQuantize([0, 20], d3.schemeBlues[9])
 
             const svg = d3.select(choroRef.current)
                 .attr("viewBox", [0, 0, 975, 610]);
 
+            svg.selectAll("*").remove();
+
+
             svg.append("g")
                 .attr("transform", "translate(610,20)")
-                // .append(() => legend({ color, title: data.title, width: 260 }));
+                .append(() => legend({ color, title: data.title, width: 260 }));
 
             svg.append("g")
                 .selectAll("path")
@@ -49,16 +73,46 @@ ${format(data.get(d.properties.name))}`);
                 .attr("stroke", "white")
                 .attr("stroke-linejoin", "round")
                 .attr("d", path);
+
         }
         sketch()
-    })
+    }, [choice])
 
 
-
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        let choice = event.target.value
+        setChoice(choice)
+    }
 
 
     return (
-        <svg ref={choroRef}></svg>
+        <div className="current-data">
+            <DropDown
+                submit={handleSubmit}
+            >
+                {possibleChoice.map((c, i) => {
+                    return (
+                        <Option
+                            key={i}
+                            option={c}
+                        ></Option>
+                    )
+                })}
+            </DropDown>
+            <DataDisplay>
+                {currentData ? currentData.map((c) => {
+                    return (
+                        <TableRow
+                            name={c.state}
+                            stat={((c.positive / c.total) * 100).toPrecision(4) + "%"}
+                        ></TableRow>
+
+                    )
+                }) : <div></div>}
+            </DataDisplay>
+            <svg className="choro" ref={choroRef}></svg>
+        </div>
     )
 };
 

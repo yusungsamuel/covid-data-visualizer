@@ -1,7 +1,51 @@
 .table {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    .column {
-        border: solid black 1px;
+    margin: 3% 0 0 3%;
+    display: inline-block;
+    width: 25%;
+    max-width:300px;
+    border: 2px solid grey;
+    .header {
+        background-color: black;
+        color: white;
+        height: 50px;
+        display:flex;
+        align-items: center;
+    }    
+    .body{
+        display:block;
+        overflow-y: scroll;
+        position: relative;
+        height: 300px;
+        
+        .row{
+            height: 40px;
+            display:flex;
+            align-items: center;
+            background-color: rgb(226, 226, 226);
+            &:nth-of-type(even){
+                background-color: grey;
+                color: white;
+            }
+        }
+        &::-webkit-scrollbar {
+            width: 3%;
+        }  
+        &::-webkit-scrollbar-track {
+            display: rgba(255, 255, 255, 0);
+        }
+        &::-webkit-scrollbar-thumb {
+            background-color: rgb(83, 83, 83);   
+            border-radius: 20px;       
+        }
     }
+    
+    .column{
+        display: inline-block;
+        width: 50%;
+        margin: 0 10% 0 0;
+        text-align: center;
+    }
+            
 }
+
+

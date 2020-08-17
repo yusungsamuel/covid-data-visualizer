@@ -141,7 +141,7 @@ const RacingBar = () => {
         const margin = ({ top: 16, right: 6, bottom: 6, left: 0 })
         const barSize = 48;
         const height = margin.top + barSize * n + margin.bottom;
-        const width = 2 * (height)
+        const width = 2.5 * (height)
 
         const x = d3.scaleLinear([0, 1], [margin.left, width - margin.right])
         const y = d3.scaleBand()
