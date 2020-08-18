@@ -16,7 +16,10 @@ const RacingBar = () => {
         let promise = []
 
         states.forEach((s) => {
+            if(s !== "ny"){
             promise.push(covidData.singleState(s.abbreviation))
+
+            } 
         })
 
         let response = await Promise.all(promise)
@@ -24,8 +27,9 @@ const RacingBar = () => {
         let data = [];
         response.forEach((r) => {
             r.data.forEach((d) => {
-                if (d.date > 20200228) {
+                if (d.date > 20200228 && d["positive"]) {
                     let obj = {}
+                    console.log(d)
                     obj.date = parseDate(d.date);
                     obj.name = d.state;
                     obj.value = d["positive"].toString()
