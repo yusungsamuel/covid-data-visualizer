@@ -29,7 +29,6 @@ const RacingBar = () => {
             r.data.forEach((d) => {
                 if (d.date > 20200228 && d["positive"]) {
                     let obj = {}
-                    console.log(d)
                     obj.date = parseDate(d.date);
                     obj.name = d.state;
                     obj.value = d["positive"].toString()
