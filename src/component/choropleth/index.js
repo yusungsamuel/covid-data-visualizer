@@ -18,39 +18,55 @@ const Choropleth = () => {
 
     const fetchData = async () => {
         const response = (await covidData.allStateCurrent()).data
-        setCurrentData(response)
+        console.log(response)
         const data = new Map();
+        let temp = []
         response.forEach((r) => {
+            const state = stateConversion[r.state]
+            if (!state) return
             switch (choice) {
-                case "Percent Positive":
-                    data.set(stateConversion[r.state], ((r.positive / r.total) * 100).toPrecision(4));
                 case "Hospitalized Currently":
-                    data.set(stateConversion[r.state], (r.hospitalizedCurrently / 100).toPrecision(2));
+                    const hospitalized = (r.hospitalizedCurrently / 100).toPrecision(2)
+                    data.set(state, hospitalized);
+                    temp.push([state, hospitalized])
+                    break
                 case "Death":
-                    data.set(stateConversion[r.state], (r.death / 100).toPrecision(2));
+                    const death = ((r.death / r.total) * 100).toPrecision(2)
+                    data.set(state, death);
+                    temp.push([state, death])
+                    break
                 default:
-                    data.set(stateConversion[r.state], ((r.positive / r.total) * 100).toPrecision(4));
+                    const positive = ((r.positive / r.total) * 100).toPrecision(4)
+                    data.set(state, positive);
+                    temp.push([state, positive])
+                    break
             }
 
         })
+        setCurrentData(temp)
         return data
     }
 
 
     useEffect(() => {
-        
+
         async function sketch() {
             const data = await fetchData()
-            // console.log(data)
             const format = d => `${d}%`
             const path = d3.geoPath();
-            const color = d3.scaleQuantize([0, 20], d3.schemeBlues[9])
+            let color;
+            if (choice === "Death") {
+                color = d3.scaleQuantize([0, .5], d3.schemeBlues[9])
+            }
+            else {
+                color = d3.scaleQuantize([0, 20], d3.schemeBlues[9])
+            }
+
 
             const svg = d3.select(choroRef.current)
                 .attr("viewBox", [0, 0, 975, 610]);
 
             svg.selectAll("*").remove();
-
 
             svg.append("g")
                 .attr("transform", "translate(610,20)")
@@ -104,8 +120,8 @@ ${format(data.get(d.properties.name))}`);
                 {currentData ? currentData.map((c) => {
                     return (
                         <TableRow
-                            name={c.state}
-                            stat={((c.positive / c.total) * 100).toPrecision(4) + "%"}
+                            name={c[0]}
+                            stat={c[1] + "%"}
                         ></TableRow>
 
                     )
