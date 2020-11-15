@@ -56,10 +56,10 @@ const Choropleth = () => {
             const path = d3.geoPath();
             let color;
             if (choice === "Death") {
-                color = d3.scaleQuantize([0, .5], d3.schemeBlues[9])
+                color = d3.scaleQuantize([0, .5], d3.schemeReds[9])
             }
             else {
-                color = d3.scaleQuantize([0, 1000], d3.schemeBlues[9])
+                color = d3.scaleQuantize([0, 1000], d3.schemeReds[9])
             }
 
 

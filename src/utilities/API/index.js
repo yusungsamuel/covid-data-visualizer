@@ -2,7 +2,7 @@ import axios from "axios";
 
 const covidData = {
     singleState: (state) =>{
-        let url = `https://api.covidtracking.com/api/v1/states/${state}/daily.json`
+        let url = `https://api.covidtracking.com/api/v1/states/${state}/daily.json`;
         return axios({
             "method": "GET",
             "url": url
@@ -10,12 +10,19 @@ const covidData = {
 
     },
     allStateCurrent: ()=>{
-        let url = "https://api.covidtracking.com/api/v1/states/current.json"
+        let url = "https://api.covidtracking.com/api/v1/states/current.json";
         return axios({
             "method": "GET",
             "url": url
         })
-    }
+    },
+    usCurrent: ()=>{
+        let url = " https://api.covidtracking.com/v1/us/current.json";
+        return axios({
+            "method": "GET",
+            "url": url
+        })
+    },
 };
 
 export default covidData;
