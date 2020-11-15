@@ -19,7 +19,7 @@ export const TableRow = (props) => {
     return (
         <div className="row">
             <div className="column">{props.name}</div>
-            <div className="column">{props.stat}</div>
+            <div className="column">{props.stat > 1000? `${props.stat/1000}M` : `${props.stat}K`} </div>
         </div>
     )
 }

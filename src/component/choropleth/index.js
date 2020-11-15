@@ -26,17 +26,17 @@ const Choropleth = () => {
             if (!state) return
             switch (choice) {
                 case "Hospitalized Currently":
-                    const hospitalized = (r.hospitalizedCurrently / 100).toPrecision(2)
+                    const hospitalized = Math.ceil(r.hospitalizedCurrently / 1000)
                     data.set(state, hospitalized);
                     temp.push([state, hospitalized])
                     break
                 case "Death":
-                    const death = ((r.death / r.total) * 100).toPrecision(2)
+                    const death = Math.ceil(r.death / 1000)
                     data.set(state, death);
                     temp.push([state, death])
                     break
                 default:
-                    const positive = ((r.positive / r.total) * 100).toPrecision(4)
+                    const positive = Math.ceil(r.positive / 1000)
                     data.set(state, positive);
                     temp.push([state, positive])
                     break
@@ -52,14 +52,14 @@ const Choropleth = () => {
 
         async function sketch() {
             const data = await fetchData()
-            const format = d => `${d}%`
+            const format = d => `${d}`
             const path = d3.geoPath();
             let color;
             if (choice === "Death") {
                 color = d3.scaleQuantize([0, .5], d3.schemeBlues[9])
             }
             else {
-                color = d3.scaleQuantize([0, 20], d3.schemeBlues[9])
+                color = d3.scaleQuantize([0, 1000], d3.schemeBlues[9])
             }
 
 
@@ -79,8 +79,7 @@ const Choropleth = () => {
                 .attr("fill", d => color(data.get(d.properties.name)))
                 .attr("d", path)
                 .append("title")
-                .text(d => `${d.properties.name}
-${format(data.get(d.properties.name))}`);
+                .text(d => `${d.properties.name} ${format(data.get(d.properties.name))}`);
 
             //white borderlines
             svg.append("path")
@@ -121,7 +120,7 @@ ${format(data.get(d.properties.name))}`);
                     return (
                         <TableRow
                             name={c[0]}
-                            stat={c[1] + "%"}
+                            stat={c[1]}
                         ></TableRow>
 
                     )
