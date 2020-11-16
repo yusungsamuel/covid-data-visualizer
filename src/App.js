@@ -39,7 +39,7 @@ function App() {
 
   return (
     <div className="App">
-{/* 
+
       <NavBar>
         {navigations.map((navigation, i) => {
           const className = i === parseInt(activeIndex) ? "navButton-active" : "navButton"
@@ -57,8 +57,8 @@ function App() {
       <div className="view-box">
 
         {conditionalRender(activeIndex)}
-      </div> */}
-      <LandingPage></LandingPage>
+      </div>
+      {/* <LandingPage></LandingPage> */}
     </div>
   );
 }

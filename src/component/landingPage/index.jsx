@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
+import {DataCell} from "../dataDisplay"
 import "./style.scss";
 import covidData from "../../utilities/API"
 
 const LandingPage = () => {
     const [totalCase, setTotalCase] = useState({});
     const [totalDeath, setTotalDeath] = useState({});
-
     useEffect(() => {
         const fetchData = (async () => {
             const data = (await covidData.usCurrent()).data[0]
@@ -24,18 +24,17 @@ const LandingPage = () => {
         })();
     }, [])
 
+
     return (
         <div className="stat-display">
-            <div>
-                <h2>Total Cases</h2>
-                <p>{totalCase.current}</p>
-                <p>{`+${totalCase.increased}`}</p>
-            </div>
-            <div>
-                <h2>Total Deaths</h2>
-                <p>{totalDeath.current}</p>
-                <p>{`+${totalDeath.increased}`}</p>
-            </div>
+            <DataCell
+                title="Total Cases"
+                data={totalCase}
+            />
+            <DataCell
+                title="Total Deaths"
+                data={totalDeath}
+            />
         </div>
     )
 }

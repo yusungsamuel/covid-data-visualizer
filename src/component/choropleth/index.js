@@ -5,7 +5,8 @@ import us from "../../states-albers-10m.json"
 import covidData from "../../utilities/API"
 import legend from "../legend"
 import { DataDisplay, TableRow } from "../dataDisplay"
-import { DropDown, Option } from "../forms"
+import {DropDown} from "../forms"
+import MenuItem from '@material-ui/core/MenuItem';
 import stateConversion from "../../state-conversion.json"
 import "./style.scss"
 
@@ -18,7 +19,6 @@ const Choropleth = () => {
 
     const fetchData = async () => {
         const response = (await covidData.allStateCurrent()).data
-        console.log(response)
         const data = new Map();
         let temp = []
         response.forEach((r) => {
@@ -55,11 +55,15 @@ const Choropleth = () => {
             const format = d => `${d}`
             const path = d3.geoPath();
             let color;
-            if (choice === "Death") {
-                color = d3.scaleQuantize([0, .5], d3.schemeReds[9])
+            if (choice === "Percent Positive") {
+                color = d3.scaleQuantize([0, 1000], d3.schemeReds[9])
+            }
+            else if(choice ==="Hospitalized Currently"){
+                color = d3.scaleQuantize([0, 5], d3.schemeReds[9])
             }
             else {
-                color = d3.scaleQuantize([0, 1000], d3.schemeReds[9])
+                color = d3.scaleQuantize([0, 20], d3.schemeReds[9])
+
             }
 
 
@@ -91,13 +95,12 @@ const Choropleth = () => {
 
         }
         sketch()
+        console.log(choice)
     }, [choice])
 
 
     const handleSubmit = (event) => {
-        event.preventDefault();
-        let choice = event.target.value
-        setChoice(choice)
+        setChoice(event.target.value)
     }
 
 
@@ -105,20 +108,24 @@ const Choropleth = () => {
         <div className="current-data">
             <DropDown
                 submit={handleSubmit}
+                value={choice}
             >
-                {possibleChoice.map((c, i) => {
+                {possibleChoice.map((c) => {
                     return (
-                        <Option
-                            key={i}
-                            option={c}
-                        ></Option>
+                        <MenuItem
+                            value={c}
+                            key={c}
+                        >
+                            {c.toUpperCase()}
+                        </MenuItem>
                     )
                 })}
             </DropDown>
             <DataDisplay>
-                {currentData ? currentData.map((c) => {
+                {currentData ? currentData.map((c, i) => {
                     return (
                         <TableRow
+                            key={i}
                             name={c[0]}
                             stat={c[1]}
                         ></TableRow>

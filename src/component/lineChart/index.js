@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import covidData from "../../utilities/API";
 import * as d3 from "d3";
-import { DropDown, Option } from "../forms";
+import { DropDown} from "../forms";
+import MenuItem from '@material-ui/core/MenuItem';
 import { parseDate } from "../../utilities/function"
 import states from "../../states.json";
 
@@ -95,9 +96,9 @@ const LineChart = () => {
             >
                 {states.map((state) => {
                     return (
-                        <Option
-                            option={state.abbreviation}
-                        ></Option>
+                        <MenuItem
+                            value={state.abbreviation}
+                        >{state.abbreviation.toUpperCase()}</MenuItem>
                     )
                 })}
             </DropDown>
