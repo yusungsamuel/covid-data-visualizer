@@ -4,19 +4,18 @@ import * as topojson from "topojson-client";
 import us from "../../states-albers-10m.json"
 import covidData from "../../utilities/API"
 import legend from "../legend"
-import { DataDisplay, TableRow } from "../dataDisplay"
-import {DropDown} from "../forms"
+import { DropDown } from "../forms"
 import MenuItem from '@material-ui/core/MenuItem';
 import stateConversion from "../../state-conversion.json"
 import "./style.scss"
 
 const possibleChoice = ["Positive", "Hospitalized", "Death"]
 
-const Choropleth = () => {
-    const [currentData, setCurrentData] = useState(null);
-    const [viewingState, setViewingState] = useState("al")
-    const [choice, setChoice] = useState("Positive")
+const Choropleth = (props) => {
     const choroRef = useRef(null);
+    const [choice, setChoice] = useState("Positive")
+
+    const setViewingState = props.handleClick
 
     const fetchData = async () => {
         const response = (await covidData.allStateCurrent()).data
@@ -44,7 +43,6 @@ const Choropleth = () => {
             }
 
         })
-        setCurrentData(temp)
         return data
     }
 
@@ -59,7 +57,7 @@ const Choropleth = () => {
             if (choice === "Positive") {
                 color = d3.scaleQuantize([0, 1000], d3.schemePurples[9])
             }
-            else if(choice ==="Hospitalized"){
+            else if (choice === "Hospitalized") {
                 color = d3.scaleQuantize([0, 5], d3.schemePurples[9])
             }
             else {
@@ -83,15 +81,16 @@ const Choropleth = () => {
                 .join("path")
                 .attr("fill", d => color(data.get(d.properties.name)))
                 .attr("d", path)
-                .on("click", function(data){
+                .on("click", function (data) {
                     setViewingState(data.properties.name)
                 })
                 .append("title")
                 .text(d => {
                     let number = format(data.get(d.properties.name))
                     return `${d.properties.name}
-${number > 1000 ? number/1000 + "M" : number + "K"}`})
-                
+${number > 1000 ? number / 1000 + "M" : number + "K"}`
+                })
+
 
             //borderlines
             svg.append("path")
@@ -104,15 +103,13 @@ ${number > 1000 ? number/1000 + "M" : number + "K"}`})
         }
         sketch()
     }, [choice])
-
-
+    
     const handleSubmit = (event) => {
         setChoice(event.target.value)
     }
 
-
     return (
-        <div className="current-data">
+        <>
             <DropDown
                 submit={handleSubmit}
                 value={choice}
@@ -128,20 +125,8 @@ ${number > 1000 ? number/1000 + "M" : number + "K"}`})
                     )
                 })}
             </DropDown>
-            {/* <DataDisplay>
-                {currentData ? currentData.map((c, i) => {
-                    return (
-                        <TableRow
-                            key={i}
-                            name={c[0]}
-                            stat={c[1]}
-                        ></TableRow>
-
-                    )
-                }) : <div></div>}
-            </DataDisplay> */}
             <svg className="choro" ref={choroRef}></svg>
-        </div>
+        </>
     )
 };
 

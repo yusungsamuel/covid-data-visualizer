@@ -3,27 +3,47 @@ import { DataCell } from "../dataDisplay"
 import "./style.scss";
 import covidData from "../../utilities/API"
 import Choropleth from "../choropleth"
+import stateConversion from "../../state-conversion.json"
 
 const CurrentData = () => {
     const [totalCase, setTotalCase] = useState({});
     const [totalDeath, setTotalDeath] = useState({});
+    const [viewingState, setViewingState] = useState("California")
+    const [statesData, setStatesData] = useState([])
     useEffect(() => {
         const fetchData = (async () => {
-            const data = (await covidData.usCurrent()).data[0]
+            const usData = (await covidData.usCurrent()).data[0]
             setTotalDeath(
                 {
-                    current: data.death,
-                    increased: data.deathIncrease
+                    current: usData.death,
+                    increased: usData.deathIncrease
                 }
             )
             setTotalCase(
                 {
-                    current: data.positive,
-                    increased: data.positiveIncrease
+                    current: usData.positive,
+                    increased: usData.positiveIncrease
                 }
             )
+            const stateData = (await covidData.allStateCurrent()).data
+            let allStateData = {}
+            stateData.forEach((s) => {
+                if (s.state !== "AS" && s.state !== "GU" && s.state !== "MP" && s.state !== "PR" && s.state !== "VI" && s.state !== "DC") {
+                    const state = stateConversion[s.state]
+                    
+                    allStateData[state] = 
+                    {
+                        positive: s.positive,
+                        death: s.death,
+                        hospitalized: s.hospitalizedCurrently
+                    }
+                }
+            })
+            setStatesData(allStateData)
         })();
     }, [])
+
+    console.log(statesData)
 
 
     return (
@@ -40,7 +60,10 @@ const CurrentData = () => {
                     data={totalDeath}
                 />
             </div>
-            <Choropleth></Choropleth>
+
+            <Choropleth
+                handleClick={setViewingState}
+            ></Choropleth>
 
         </>
     )

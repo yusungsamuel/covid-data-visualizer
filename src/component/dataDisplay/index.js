@@ -1,31 +1,55 @@
 import React from "react";
 import "./style.scss"
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 
 export const DataDisplay = (props) => {
     return (
-        <div className="table">
-            <div className="header">
-                <div className="column">State</div>
-                <div className="column">Numbers</div>
-            </div>
-            <div className="body">
-                {props.children}
-            </div>
-        </div>
+        <TableContainer component={Paper}>
+            <Table aria-label="simple table">
+                <TableHead>
+                    <TableRow>
+                        {props.headers.map((header, i) => {
+                            return (
+                                <TableCell>
+                                    {header}
+                                </TableCell>
+                            )
+                        })}
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {props.rows.map((row, i) => {
+                        return (
+                            <TableRow
+                                key={i}
+                            >
+                                {row.map((r, j) => {
+                                    return (
+                                        <TableCell
+                                            key={j}
+                                        >
+                                            {r}
+                                        </TableCell>
+                                    )
+                                })}
+                            </TableRow>
+                        )
+                    })}
+                </TableBody>
+            </Table>
+        </TableContainer>
     )
 }
 
-export const TableRow = (props) => {
-    return (
-        <div className="row">
-            <div className="column">{props.name}</div>
-            <div className="column">{props.stat > 1000 ? `${props.stat / 1000}M` : `${props.stat}K`} </div>
-        </div>
-    )
-}
 
 export const DataCell = (props) => {
-    
+
     const numberWithCommas = (x = 0) => {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
