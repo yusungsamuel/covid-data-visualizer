@@ -71,7 +71,7 @@ const LineChart = () => {
             svg.append("path")
                 .datum(data)
                 .attr("fill", "none")
-                .attr("stroke", "navy")
+                .attr("stroke", "#563DD0")
                 .attr("stroke-width", 1.5)
                 .attr("stroke-linejoin", "round")
                 .attr("stroke-linecap", "round")

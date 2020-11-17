@@ -46,8 +46,6 @@ const CurrentData = () => {
 
     return (
         <>
-            <h1>Covid-19 Data Visualizer</h1>
-            <p>Data provided by <a href="https://covidtracking.com/">The Covid Tracking Project</a></p>
             <div className="stat-display">
                 <DataCell
                     title="Total Cases"

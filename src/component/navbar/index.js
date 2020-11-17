@@ -1,16 +1,30 @@
 import React from "react";
+import Paper from '@material-ui/core/Paper';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 import "./style.scss"
 
 export const NavBar = (props) => {
 
     return (
-        <nav className="navbar uk-navbar-transparent uk-navbar-container" data-uk-navbar>
-            <div className="uk-navbar-center">
-                <ul className="uk-navbar-nav">
-                    {props.children}
-                </ul>
-            </div>
-        </nav>
+        <Paper
+            square={true}
+            style={{"background-color": "#219653"}}
+        >
+            <Tabs
+                centered
+            >
+                {props.options.map((option, i)=>{
+                    return (
+                        <Tab 
+                            onClick={()=>{props.click(i)}}
+                            key={option}
+                            label={option}
+                        />
+                    )
+                })}
+            </Tabs>
+        </Paper>
 
     )
 };

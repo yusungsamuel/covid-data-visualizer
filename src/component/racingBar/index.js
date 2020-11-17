@@ -237,7 +237,7 @@ const RacingBar = () => {
 
     return (
         <div className="chart-container">
-            <h1>Numbers of Positive Cases in the US</h1>
+            <h1>Numbers of Positive Cases by states</h1>
             <svg className = "canvas" ref={racingBarRef}></svg>
         </div>
     )

@@ -1,64 +1,58 @@
 import React, { useEffect, useState, useRef } from 'react';
-import './App.css';
+import './App.scss';
 import { NavBar, NavItem } from "./component/navbar"
 import RacingBar from "./component/racingBar";
 import PieChart from "./component/pieChart";
 import LineChart from "./component/lineChart"
-import Choropleth from "./component/choropleth"
-import DataDisplay from "./component/dataDisplay"
 import CurrentData from "./component/currentData/index"
-import { active } from 'd3';
-
+import AppBar from '@material-ui/core/AppBar';
 
 function App() {
-  const navigations = ["Current Status", "Cumulative Counts", "Racing Bar Chart"];
   const [activeIndex, setActiveIndex] = useState("0");
-  const arr = [Choropleth, LineChart, RacingBar]
-  const handleClick = (e) => {
-    e.preventDefault();
-    const index = e.target.dataset.index
+  const option = ["Current Data", "Trends by state", "Competition between states"]
+  const handleClick = (index) => {
+    console.log(index)
     setActiveIndex(index)
-    console.log(typeof activeIndex)
   }
 
   const conditionalRender = (index) => {
     switch (index) {
-      case ("0"):
+      case (0):
         return (
-            <Choropleth></Choropleth>
+          <CurrentData></CurrentData>
         )
-      case ("1"):
+      case (1):
         return (<LineChart></LineChart>)
-      case ("2"):
+      case (2):
         return (<RacingBar></RacingBar>)
       default:
-        return (<Choropleth></Choropleth>)
+        return (<CurrentData></CurrentData>)
     }
 
   }
 
   return (
     <div className="App">
-{/* 
-      <NavBar>
-        {navigations.map((navigation, i) => {
-          const className = i === parseInt(activeIndex) ? "navButton-active" : "navButton"
-          return (
-            <NavItem
-              key={i}
-              dataIndex={i}
-              title={navigation}
-              handleClick={handleClick}
-              className={className}
-            ></NavItem>
-          )
-        })}
-      </NavBar>
-      <div className="view-box">
+      <div className="header">
+        <h1>Covid-19 Data Visualizer</h1>
+        <h3>An intuitive way to see Coronavirus Disease 2019 data</h3>
+      </div>
+
+      <NavBar
+        options={option}
+        click={handleClick}
+      />
+      <div className="main">
 
         {conditionalRender(activeIndex)}
-      </div> */}
-      <CurrentData></CurrentData>
+      </div>
+      <AppBar
+        position="relative"
+        color="transparent"
+        style={{ "background-color": "#219653" }}
+      >
+        <p className="footer">Data provided by <a href="https://covidtracking.com/">The Covid Tracking Project</a></p>
+      </AppBar>
     </div>
   );
 }
