@@ -48,4 +48,26 @@
             
 }
 
+.data-cell {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    width: 90%;
+    margin:1% auto auto auto;
+    p, h2{
+        margin: 1%;
+    }
+    .current-number{
+        font-size: 3rem;
+        color: #638a72
+    }
+    h2{
+        font-size: 2rem;
+    }
+    .increased{
+        font-size: 1rem
+    }
+}
 

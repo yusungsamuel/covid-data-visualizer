@@ -25,11 +25,19 @@ export const TableRow = (props) => {
 }
 
 export const DataCell = (props) => {
+    
+    const numberWithCommas = (x = 0) => {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+    let current = numberWithCommas(props.data.current)
+    let increased = numberWithCommas(props.data.increased)
+
     return (
-        <div>
+        <div className="data-cell">
             <h2>{props.title}</h2>
-            <p>{props.data.current}</p>
-            <p>{`+${props.data.increased}`}</p>
+            <p className="current-number">{current}</p>
+            <p className="increased-number">{`+${increased}`}</p>
         </div>
     )
 };

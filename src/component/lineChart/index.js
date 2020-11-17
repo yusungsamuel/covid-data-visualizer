@@ -93,12 +93,13 @@ const LineChart = () => {
         <div>
             <DropDown
                 submit={handleSubmit}
+                value= {state}
             >
-                {states.map((state) => {
+                {states.map((s) => {
                     return (
                         <MenuItem
-                            value={state.abbreviation}
-                        >{state.abbreviation.toUpperCase()}</MenuItem>
+                            value={s.abbreviation}
+                        >{s.abbreviation.toUpperCase()}</MenuItem>
                     )
                 })}
             </DropDown>

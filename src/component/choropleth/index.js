@@ -10,11 +10,12 @@ import MenuItem from '@material-ui/core/MenuItem';
 import stateConversion from "../../state-conversion.json"
 import "./style.scss"
 
-const possibleChoice = ["Percent Positive", "Hospitalized Currently", "Death"]
+const possibleChoice = ["Positive", "Hospitalized", "Death"]
 
 const Choropleth = () => {
     const [currentData, setCurrentData] = useState(null);
-    const [choice, setChoice] = useState("Percent Positive")
+    const [viewingState, setViewingState] = useState("al")
+    const [choice, setChoice] = useState("Positive")
     const choroRef = useRef(null);
 
     const fetchData = async () => {
@@ -25,7 +26,7 @@ const Choropleth = () => {
             const state = stateConversion[r.state]
             if (!state) return
             switch (choice) {
-                case "Hospitalized Currently":
+                case "Hospitalized":
                     const hospitalized = Math.ceil(r.hospitalizedCurrently / 1000)
                     data.set(state, hospitalized);
                     temp.push([state, hospitalized])
@@ -55,14 +56,14 @@ const Choropleth = () => {
             const format = d => `${d}`
             const path = d3.geoPath();
             let color;
-            if (choice === "Percent Positive") {
-                color = d3.scaleQuantize([0, 1000], d3.schemeReds[9])
+            if (choice === "Positive") {
+                color = d3.scaleQuantize([0, 1000], d3.schemePurples[9])
             }
-            else if(choice ==="Hospitalized Currently"){
-                color = d3.scaleQuantize([0, 5], d3.schemeReds[9])
+            else if(choice ==="Hospitalized"){
+                color = d3.scaleQuantize([0, 5], d3.schemePurples[9])
             }
             else {
-                color = d3.scaleQuantize([0, 20], d3.schemeReds[9])
+                color = d3.scaleQuantize([0, 20], d3.schemePurples[9])
 
             }
 
@@ -82,20 +83,26 @@ const Choropleth = () => {
                 .join("path")
                 .attr("fill", d => color(data.get(d.properties.name)))
                 .attr("d", path)
+                .on("click", function(data){
+                    setViewingState(data.properties.name)
+                })
                 .append("title")
-                .text(d => `${d.properties.name} ${format(data.get(d.properties.name))}`);
+                .text(d => {
+                    let number = format(data.get(d.properties.name))
+                    return `${d.properties.name}
+${number > 1000 ? number/1000 + "M" : number + "K"}`})
+                
 
-            //white borderlines
+            //borderlines
             svg.append("path")
                 .datum(topojson.mesh(us, us.objects.states, (a, b) => a !== b))
                 .attr("fill", "none")
-                .attr("stroke", "white")
+                .attr("stroke", "indigo")
                 .attr("stroke-linejoin", "round")
                 .attr("d", path);
 
         }
         sketch()
-        console.log(choice)
     }, [choice])
 
 
@@ -121,7 +128,7 @@ const Choropleth = () => {
                     )
                 })}
             </DropDown>
-            <DataDisplay>
+            {/* <DataDisplay>
                 {currentData ? currentData.map((c, i) => {
                     return (
                         <TableRow
@@ -132,7 +139,7 @@ const Choropleth = () => {
 
                     )
                 }) : <div></div>}
-            </DataDisplay>
+            </DataDisplay> */}
             <svg className="choro" ref={choroRef}></svg>
         </div>
     )

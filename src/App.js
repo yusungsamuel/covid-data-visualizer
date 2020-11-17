@@ -6,7 +6,7 @@ import PieChart from "./component/pieChart";
 import LineChart from "./component/lineChart"
 import Choropleth from "./component/choropleth"
 import DataDisplay from "./component/dataDisplay"
-import LandingPage from "./component/landingPage/index"
+import CurrentData from "./component/currentData/index"
 import { active } from 'd3';
 
 
@@ -39,7 +39,7 @@ function App() {
 
   return (
     <div className="App">
-
+{/* 
       <NavBar>
         {navigations.map((navigation, i) => {
           const className = i === parseInt(activeIndex) ? "navButton-active" : "navButton"
@@ -57,8 +57,8 @@ function App() {
       <div className="view-box">
 
         {conditionalRender(activeIndex)}
-      </div>
-      {/* <LandingPage></LandingPage> */}
+      </div> */}
+      <CurrentData></CurrentData>
     </div>
   );
 }
