@@ -125,6 +125,7 @@ ${number > 1000 ? number / 1000 + "M" : number + "K"}`
                     )
                 })}
             </DropDown>
+
             <svg className="choro" ref={choroRef}></svg>
         </>
     )

@@ -7,16 +7,19 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Odometer from 'react-odometerjs';
 
-export const DataDisplay = (props) => {
+export const DataTable = (props) => {
     return (
         <TableContainer component={Paper}>
-            <Table aria-label="simple table">
+            <Table>
                 <TableHead>
                     <TableRow>
                         {props.headers.map((header, i) => {
                             return (
-                                <TableCell>
+                                <TableCell
+                                    style={{"font-weight":"bold"}}
+                                >
                                     {header}
                                 </TableCell>
                             )
@@ -24,20 +27,25 @@ export const DataDisplay = (props) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {props.rows.map((row, i) => {
+                    {Object.keys(props.rows).map((r, i) => {
+                        let row = props.rows[r]
                         return (
                             <TableRow
                                 key={i}
                             >
-                                {row.map((r, j) => {
-                                    return (
-                                        <TableCell
-                                            key={j}
-                                        >
-                                            {r}
-                                        </TableCell>
-                                    )
-                                })}
+                                <TableCell>
+                                    {r}
+                                </TableCell>
+                                <TableCell>
+                                    {row? row.positive : null}
+                                </TableCell>
+                                <TableCell>
+                                    {row? row.hospitalized : null}
+                                </TableCell>
+                                <TableCell>
+                                    {row? row.death : null}
+                                </TableCell>
+
                             </TableRow>
                         )
                     })}
@@ -60,7 +68,7 @@ export const DataCell = (props) => {
     return (
         <div className="data-cell">
             <h2>{props.title}</h2>
-            <p className="current-number">{current}</p>
+            <p className="odometer current-number">{current}</p>
             <p className="increased-number">{`+${increased}`}</p>
         </div>
     )

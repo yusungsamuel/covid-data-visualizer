@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { DataCell } from "../dataDisplay"
+import { DataCell, DataTable } from "../dataDisplay"
 import "./style.scss";
 import covidData from "../../utilities/API"
 import Choropleth from "../choropleth"
@@ -30,8 +30,8 @@ const CurrentData = () => {
             stateData.forEach((s) => {
                 if (s.state !== "AS" && s.state !== "GU" && s.state !== "MP" && s.state !== "PR" && s.state !== "VI" && s.state !== "DC") {
                     const state = stateConversion[s.state]
-                    
-                    allStateData[state] = 
+
+                    allStateData[state] =
                     {
                         positive: s.positive,
                         death: s.death,
@@ -42,8 +42,6 @@ const CurrentData = () => {
             setStatesData(allStateData)
         })();
     }, [])
-
-    console.log(statesData)
 
 
     return (
@@ -60,10 +58,20 @@ const CurrentData = () => {
                     data={totalDeath}
                 />
             </div>
-
+            <DataTable
+                headers={["State", "Positive", "Hospitalized", "Death"]}
+                rows={{[viewingState]:statesData[viewingState]}}
+            > 
+            </DataTable>
             <Choropleth
                 handleClick={setViewingState}
             ></Choropleth>
+
+            <DataTable
+                headers={["State", "Positive", "Hospitalized", "Death"]}
+                rows={statesData}
+            >
+            </DataTable>
 
         </>
     )
